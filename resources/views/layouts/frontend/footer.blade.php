@@ -1,4 +1,4 @@
-<footer class="footer-area">
+{{-- <footer class="footer-area">
     <!-- Top Footer Area -->
     <div class="top-footer-area">
         <div class="container">
@@ -9,9 +9,7 @@
                         <a href="/"><h3 class="text-light">{nama sekolah}</h3></a>
                     </div>
                     <!-- Copywrite -->
-                    {{-- <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright Rahmat Hidayatullah &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p> --}}
+                   
                 </div>
             </div>
         </div>
@@ -30,4 +28,34 @@ Copyright Rahmat Hidayatullah &copy;<script>document.write(new Date().getFullYea
             <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
         </div>
     </div>
+</footer> --}}
+
+<div class="full-section">
+<footer class="footer-area">
+    <div class="top-footer-area">
+        <div class="container">
+            <div class="row">
+                <nav>
+                    <div class="col-12">
+                        <div class="footer-logo">
+                            <img src="{{ asset('img/bg/pgri.png') }}" alt="">
+                        </div>
+                        <div class="navbar-collapse">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a href="/" class="{{ Request::is('/') || Request::is('home') ? 'text-primary' : '' }}">Home</a></li>
+                                <li class="nav-item"><a href="{{ route('about') }}" class="{{ Request::is('about') ? 'text-primary' : '' }}">Tentang</a></li>
+                                <li class="nav-item"><a href="{{ route('contact') }}" class="{{ Request::is('contact') ? 'text-primary' : '' }}">Kontak</a></li>
+                                <li class="nav-item"><a href="{{ route('artikel') }}" class="{{ Request::segment(1) == 'artikel' ? 'text-primary' : '' }}">Artikel</a></li>
+                                <li class="nav-item"><a href="{{ route('pengumuman') }}" class="{{ Request::segment(1) == 'pengumuman' ? 'text-primary' : '' }}">Pengumuman</a></li>
+                                <li class="nav-item"><a href="" class="{{ Request::is('agenda') ? 'text-primary' : '' }}">Agenda</a></li>
+                            </ul>
+
+                        </div>
+            
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
 </footer>
+</div>

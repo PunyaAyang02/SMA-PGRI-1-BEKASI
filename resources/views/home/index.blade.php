@@ -3,39 +3,46 @@
 ])
 @section('content')
 <!-- ##### Hero Area Start ##### -->
-<section class="hero-area bg-img bg-overlay-2by5" style="background-image: url({{ asset('img/bg') }}/bg2.jpg);">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <!-- Hero Content -->
-                <div class="hero-content text-center">
-                    <h2>Selamat Datang di {Nama Sekolah}</h2>
-                    <a href="#" class="btn clever-btn">Tombol</a>
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="hero-area img-fluid" style="background-image: url({{ asset('img/bg') }}/bg2.jpg);" alt="Responsive image">
+                    <div class="container mx-auto h-full flex justify-center items-center">
+                        <div class="row">
+                            <div class="col-12" style="height: 100px">
+                                <!-- Hero Content -->
+                                <div class="hero-content text-center">
+                                    <h2>Selamat Datang di {Nama Sekolah}</h2>
+                                    <a href="#" class="btn clever-btn">Tombol</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" class="container aos-init aos-animate">
+                <div class="row">
+                    <div class="col-md-12" style="padding: 100px">
+                        <div class="justify-content-center">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 <!-- ##### Hero Area End ##### -->
 
-<div class="regular-page-area section-padding-100 mt-5 mb-4">
-    <div class="col-lg-9 mx-auto">
-        <div class="card">
-            <div class="card-header">Nama Sekolah</div>
-            <div class="card-body">
-                <p class="lead">
-                    {tentang sekolah}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 
 @if($pengumuman->count() > 0)
 <section class="upcoming-events section-padding-100-0">
