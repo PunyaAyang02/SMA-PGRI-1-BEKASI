@@ -99,7 +99,7 @@ class ArtikelController extends Controller
     {
         $this->authorize('update',$artikel);
 
-        Artikel::create([
+        Artikel::update([
             'judul' => $request->judul,
             'deskripsi' => $this->summernoteService->imageUpload('artikel'),
             'thumbnail' => $this->uploadService->imageUpload('artikel'),

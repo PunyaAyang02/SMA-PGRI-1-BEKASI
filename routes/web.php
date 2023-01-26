@@ -42,6 +42,10 @@ Route::get('/artikel/{artikel:slug}',[ArtikelController::class,'show'])->name('a
 Route::get('/pengumuman',[PengumumanController::class,'index'])->name('pengumuman');
 Route::get('/pengumuman/{pengumuman:slug}',[PengumumanController::class,'show'])->name('pengumuman.show');
 
+//Agenda
+Route::get('/agenda',[AgendaController::class,'index'])->name('agenda');
+Route::get('/agenda/{agenda:slug}',[AgendaController::class, 'show'])->name('agenda.show');
+
 //Admin
 Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => ['auth']],function(){
 	Route::name('admin.')->group(function(){
