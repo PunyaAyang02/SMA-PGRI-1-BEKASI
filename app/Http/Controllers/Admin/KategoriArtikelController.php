@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryArticle;
 use Illuminate\Http\Request;
 
 use App\Models\KategoriArtikel;
@@ -17,8 +18,10 @@ class KategoriArtikelController extends Controller
      */
     public function index()
     {
-        $kategoriArtikel = KategoriArtikel::all();
-        return view('admin.kategori-artikel.index',compact('kategoriArtikel'));
+        $categoryArticle = CategoryArticle::all();
+        return view('admin.kategori-artikel.index',[
+            'categoryArticle'=>$categoryArticle
+        ]);
     }
 
     /**
@@ -39,9 +42,9 @@ class KategoriArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        KategoriArtikel::create([
-            'nama_kategori' => $request->nama_kategori,
-            'slug' => Str::slug($request->nama_kategori),
+        CategoryArticle::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
         ]);
         return redirect()->route('admin.kategori-artikel.index')->with('success','Data berhasil ditambah');
     }
@@ -63,9 +66,12 @@ class KategoriArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(KategoriArtikel $kategoriArtikel)
+    public function edit($id)
     {
-        return view('admin.kategori-artikel.edit',compact('kategoriArtikel'));
+        $categoryArticle=CategoryArticle::find($id);
+        return view('admin.kategori-artikel.edit',[
+            'categoryArticle'   =>  $categoryArticle
+        ]);
     }
 
     /**
@@ -75,9 +81,13 @@ class KategoriArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KategoriArtikel $kategoriArtikel)
+    public function update(Request $request, $id)
     {
-        $kategoriArtikel->update($request->all());
+        $data=[
+            'name'  =>$request->name,
+        ];
+
+        CategoryArticle::where('id',$id)->update($data);
         return redirect()->route('admin.kategori-artikel.index')->with('success','Data berhasil diupdate');
     }
 
@@ -87,9 +97,10 @@ class KategoriArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KategoriArtikel $kategoriArtikel)
+    public function destroy($id)
     {   
-        $kategoriArtikel->delete();
+        $categoryArticle=CategoryArticle::find($id);
+        $categoryArticle->delete();
         return redirect()->route('admin.kategori-artikel.index')->with('success','Data berhasil dihapus');
     }
 }

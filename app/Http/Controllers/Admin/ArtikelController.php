@@ -5,23 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Events\ArtikelDeleteEvent;
+use App\Models\Article;
 use App\Services\SummernoteService;
 use App\Services\UploadService;
 use App\Models\Artikel;
+use App\Models\CategoryArticle;
 use App\Models\KategoriArtikel;
 use Str;
 use File;
 
 class ArtikelController extends Controller
 {
-    private $summernoteService;
-    private $uploadService;
+    // private $summernoteService;
+    // private $uploadService;
 
-    public function __construct(SummernoteService $summernoteService, UploadService $uploadService)
-    {
-        $this->summernoteService = $summernoteService;
-        $this->uploadService = $uploadService;
-    }
+    // public function __construct(SummernoteService $summernoteService, UploadService $uploadService)
+    // {
+    //     $this->summernoteService = $summernoteService;
+    //     $this->uploadService = $uploadService;
+    // }
 
     /**
      * Display a listing of the resource.
@@ -30,8 +32,10 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        $artikel = Artikel::with(['user','kategoriArtikel'])->get();
-        return view('admin.artikel.index',compact('artikel'));
+        $article = Article::with(['user','categoryArticle'])->get();
+        return view('admin.artikel.index',[
+            'article'   =>$article
+        ]);
     }
 
     /**
@@ -41,8 +45,10 @@ class ArtikelController extends Controller
      */
     public function create()
     {
-        $kategoriArtikel = KategoriArtikel::all();
-        return view('admin.artikel.create',compact('kategoriArtikel'));
+        $categoryArticle = CategoryArticle::all();
+        return view('admin.artikel.create',[
+            'categoryArticle'   =>  $categoryArticle
+        ]);
     }
 
     /**
@@ -53,14 +59,14 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        $image=Artikel::saveImage($request);
-        Artikel::create([
-            'judul' => $request->judul,
-            'deskripsi' => $this->summernoteService->imageUpload('artikel'),
+        $image=Article::saveImage($request);
+        Article::create([
+            'title' => $request->title,
+            'deskripsi' => $request->deskripsi,
             'thumbnail' => $image,
-            'slug' => Str::slug($request->judul),
+            'slug' => Str::slug($request->title),
             'user_id' => auth()->user()->id,
-            'kategori_artikel_id' => $request->kategori_artikel_id,
+            'category_article_id' => $request->category_article_id,
         ]);
 
         return redirect()->route('admin.artikel.index')->with('success','Data berhasil ditambah');
@@ -85,10 +91,13 @@ class ArtikelController extends Controller
      */
     public function edit($id)
     {   
-        $artikel =Artikel::find($id);
-        $kategoriArtikel = KategoriArtikel::oldest('nama_kategori')
+        $article =Article::find($id);
+        $categoryArticle = CategoryArticle::oldest('name')
         ->get();
-        return view('admin.artikel.edit',compact('artikel','kategoriArtikel'));
+        return view('admin.artikel.edit',[
+            'article'   => $article,
+            'categoryArticle'   =>$categoryArticle
+        ]);
     }
 
     /**
@@ -112,17 +121,17 @@ class ArtikelController extends Controller
         // ]);
 
         $data=[
-            'judul'=>$request->judul,
+            'title'=>$request->title,
             'deskripsi'=>$request->deskripsi,
         ];
 
-        $image=Artikel::saveImage($request);
+        $image=Article::saveImage($request);
         if ($image) {
             $data['thumbnail']=$image;
-            Artikel::deleteImage($id);
+            Article::deleteImage($id);
         }
 
-        Artikel::where('id', $id)->update($data);
+        Article::where('id', $id)->update($data);
         return redirect()->route('admin.artikel.index')->with('success','Data berhasil diupdate');
     }
 
@@ -134,11 +143,11 @@ class ArtikelController extends Controller
      */
     public function destroy($id)
     {   
-        $artikel=Artikel::find($id);
+        $article=Article::find($id);
 
-        Artikel::deleteImage($id);
+        Article::deleteImage($id);
 
-        $artikel->delete();
+        $article->delete();
         return redirect()->route('admin.artikel.index')->with('success','Data berhasil dihapus');
     }
 }

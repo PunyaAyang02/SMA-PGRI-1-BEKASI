@@ -20,22 +20,24 @@
             @csrf
             <div class="form-group">
                 <label for="judul">Judul Artikel</label>
-                <input required="" type="" name="judul" placeholder="" class="form-control"> 
+                <input required="" type="" name="title" placeholder="" class="form-control"> 
             </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Thumbnail</label>
-                        <input type="file" name="thumbnail" class="dropify form-control" data-height="190" data-default-file="{{ @$artikel->image_url }}" data-allowed-file-extensions="png jpg gif jpeg svg webp jfif">
+                        <input type="file" name="thumbnail" class="dropify form-control" data-height="190" data-default-file="{{ @$article->image_url }}" data-allowed-file-extensions="png jpg gif jpeg svg webp jfif">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Kategori</label>
-                        <select required="" class="form-control" name="kategori_artikel_id">
+                        <select required="" class="form-control" name="category_article_id">
                         <option selected="" disabled="">- PILIH KATEGORI -</option>
-                        @foreach($kategoriArtikel as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                        @foreach($categoryArticle as $kategori)
+                            <option value="{{ $kategori->id }}">
+                                {{ $kategori->name }}
+                            </option>
                         @endforeach
                         </select>
                     </div>

@@ -24,7 +24,7 @@
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
-        <h3>@count('artikel')</h3>
+        <h3>@count('articles')</h3>
 
         <p>Artikel</p>
       </div>

@@ -12,12 +12,12 @@
             </h4>
         </div>
         <div class="card-body">
-        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.kategori-artikel.update',$kategoriArtikel->id) }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.kategori-artikel.update',$categoryArticle->id) }}">
             @csrf
             @method('PATCH')
             <div class="form-group">
                 <label for="nama_kategori">Nama kategori</label>
-                <input value="{{ $kategoriArtikel->nama_kategori }}" required="" type="" name="nama_kategori" placeholder="" class="form-control"> 
+                <input value="{{ $categoryArticle->name }}" required="" type="" name="name" placeholder="" class="form-control"> 
             </div>
         </div>
         <div class="card-footer">

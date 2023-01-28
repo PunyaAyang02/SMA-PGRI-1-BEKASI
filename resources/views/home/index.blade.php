@@ -79,7 +79,7 @@
 </section>
 @endif
 
-@if($artikel->count() > 0)
+@if($article->count() > 0)
 <!-- ##### Artikel ##### -->
 <section class="blog-area section-padding-100-0 mb-50">
     <div class="container">
@@ -93,7 +93,7 @@
 
         <div class="row">
 
-            @foreach($artikel as $art)
+            @foreach($article as $art)
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -102,7 +102,7 @@
                             <span class="badge badge-danger float-right">Author : {{ $art->user->name }}</span>
                         </div>
                         <div class="card-body">
-                            {{-- <img src="{{ asset($art->getImageUrlAttribute()) }}" width="100%" style="height: 300px; object-fit: cover; object-position: center;"> --}}
+                            <img src="{{ $art->image_url }}" width="100%" style="height: 300px; object-fit: cover; object-position: center;">
 
                             <div class="card-text mt-3">
                                 {!! Str::limit($art->deskripsi) !!}
@@ -111,7 +111,7 @@
                             <a href="{{ route('artikel.show',$art->slug) }}" class="btn btn-primary btn-sm">Selengkapnya</a>
                         </div>
                         <div class="card-footer">
-                                <span class="badge badge-primary float-right">kategori : {{ $art->kategoriArtikel->nama_kategori }}</span>
+                                <span class="badge badge-primary float-right">kategori : {{ $art->categoryArticle->name }}</span>
                         </div>
                     </div>
                 </div>

@@ -24,14 +24,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php 
-                    $no=1;
-                @endphp
 
-                @foreach($kategoriArtikel as $ktgArt)
+                @foreach($categoryArticle as $ktgArt)
                 <tr>
-                  <td>{{ $no++ }}</td>
-                  <td>{{ $ktgArt->nama_kategori }}</td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $ktgArt->name }}</td>
                   
                   <td>
                     <div class="row ml-2">

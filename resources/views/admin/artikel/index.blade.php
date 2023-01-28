@@ -26,16 +26,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @php 
-                    $no=1;
-                @endphp
 
-                @foreach($artikel as $art)
+                @foreach($article as $art)
                 <tr>
-                  <td>{{ $no++ }}</td>
-                  <td>{{ $art->judul }}</td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $art->title }}</td>
                   <td>{{ $art->user->name }}</td>
-                  <td>{{ $art->kategoriArtikel->nama_kategori }}</td>
+                  <td>{{ $art->categoryArticle->name }}</td>
                   
                   <td>
                     @if(auth()->user()->id == $art->user_id)

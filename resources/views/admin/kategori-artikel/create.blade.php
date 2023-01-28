@@ -16,7 +16,7 @@
             @csrf
             <div class="form-group">
                 <label for="nama_kategori">Nama kategori</label>
-                <input required="" type="" name="nama_kategori" placeholder="" class="form-control"> 
+                <input required="" type="" name="name" placeholder="" class="form-control"> 
             </div>
         </div>
         <div class="card-footer">

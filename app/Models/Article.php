@@ -4,20 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use App\Models\User;
-use App\Models\KategoriArtikel;
 use Illuminate\Support\Facades\Storage;
 use Image;
-class Artikel extends Model
+
+class Article extends Model
 {
     use HasFactory;
-
-    protected $table = 'artikel';
-
-    // protected $fillable = [
-    // 	'judul','slug','deskripsi','thumbnail','slug','user_id','kategori_artikel_id',
-    // ];
 
     protected $guarded = [
         'id'
@@ -28,9 +20,9 @@ class Artikel extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function kategoriArtikel()
+    public function categoryArticle()
     {
-    	return $this->belongsTo(KategoriArtikel::class);
+    	return $this->belongsTo(CategoryArticle::class);
     }
 
     // public function getThumbnail()
@@ -53,21 +45,17 @@ class Artikel extends Model
      */
     public static function saveImage($request)
     {
-        $input['file'] = null;
+        $filename = null;
 
         if ($request->thumbnail) {
             $file = $request->thumbnail;
 
-            $input['file'] = time() . '.' . $file->getClientOriginalExtension();
-
-            $imgFile = Image::make($file->getRealPath());
-
-            $imgFile->stream();
-
-            Storage::disk('local')->put('public/image/artikel' . '/' . $input['file'], $imgFile, 'public');
+            $ext = $file->getClientOriginalExtension();
+            $filename = date('YmdHis') . uniqid() . '.' . $ext;
+            $file->storeAs('public/image/artikel/', $filename);
         }
 
-        return $input['file'];
+        return $filename;
     }
 
     /**
@@ -78,7 +66,7 @@ class Artikel extends Model
     public function getImageUrlAttribute()
     {
         if ($this->thumbnail) {
-            return asset('storage/image/artikel' . $this->thumbnail);
+            return asset('storage/public/image/artikel/' . $this->thumbnail);
         }
 
         return null;
@@ -92,14 +80,11 @@ class Artikel extends Model
      */
     public static function deleteImage($id)
     {
-        $artikel = Artikel::firstWhere('id', $id);
-
-        
-        if ($artikel->thumbnail != null) {
-            $path = 'public/image/artikel/' . $artikel->thumbnail;
-            
+        $article = Article::firstWhere('id', $id);
+        if ($article->thumbnail != null) {
+            $path = 'public/image/artikel/' . $article->thumbnail;
             if (Storage::exists($path)) {
-                Storage::delete('public/image/artikel/' . $artikel->thumbnail);
+                Storage::delete('public/image/artikel/' . $article->thumbnail);
             }
         }
     }
