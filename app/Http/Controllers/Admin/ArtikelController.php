@@ -53,10 +53,11 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
+        $image=Artikel::saveImage($request);
         Artikel::create([
             'judul' => $request->judul,
             'deskripsi' => $this->summernoteService->imageUpload('artikel'),
-            'thumbnail' => $this->uploadService->imageUpload('artikel'),
+            'thumbnail' => $image,
             'slug' => Str::slug($request->judul),
             'user_id' => auth()->user()->id,
             'kategori_artikel_id' => $request->kategori_artikel_id,
@@ -82,9 +83,11 @@ class ArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Artikel $artikel)
+    public function edit($id)
     {   
-        $kategoriArtikel = KategoriArtikel::get();
+        $artikel =Artikel::find($id);
+        $kategoriArtikel = KategoriArtikel::oldest('nama_kategori')
+        ->get();
         return view('admin.artikel.edit',compact('artikel','kategoriArtikel'));
     }
 
@@ -95,19 +98,31 @@ class ArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artikel $artikel)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update',$artikel);
+        // $this->authorize('update',$artikel);
 
-        Artikel::create([
-            'judul' => $request->judul,
-            'deskripsi' => $this->summernoteService->imageUpload('artikel'),
-            'thumbnail' => $this->uploadService->imageUpload('artikel'),
-            'slug' => Str::slug($request->judul),
-            'user_id' => auth()->user()->id,
-            'kategori_artikel_id' => $request->kategori_artikel_id,
-        ]);
-           
+        // Artikel::update([
+        //     'judul' => $request->judul,
+        //     'deskripsi' => $this->summernoteService->imageUpload('artikel'),
+        //     'thumbnail' => $this->uploadService->imageUpload('artikel'),
+        //     'slug' => Str::slug($request->judul),
+        //     'user_id' => auth()->user()->id,
+        //     'kategori_artikel_id' => $request->kategori_artikel_id,
+        // ]);
+
+        $data=[
+            'judul'=>$request->judul,
+            'deskripsi'=>$request->deskripsi,
+        ];
+
+        $image=Artikel::saveImage($request);
+        if ($image) {
+            $data['thumbnail']=$image;
+            Artikel::deleteImage($id);
+        }
+
+        Artikel::where('id', $id)->update($data);
         return redirect()->route('admin.artikel.index')->with('success','Data berhasil diupdate');
     }
 
@@ -117,12 +132,12 @@ class ArtikelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artikel $artikel)
+    public function destroy($id)
     {   
-        $this->authorize('delete',$artikel);
+        $artikel=Artikel::find($id);
 
-        event(new ArtikelDeleteEvent($artikel));
-        
+        Artikel::deleteImage($id);
+
         $artikel->delete();
         return redirect()->route('admin.artikel.index')->with('success','Data berhasil dihapus');
     }

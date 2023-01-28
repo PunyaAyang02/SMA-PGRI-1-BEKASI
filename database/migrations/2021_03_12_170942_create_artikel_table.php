@@ -20,7 +20,7 @@ class CreateArtikelTable extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('thumbnail')->nullable();
             $table->bigInteger('user_id')->nullable();
-            $table->bigInteger('kategori_artikel_id')->nullable();
+            $table->bigInteger('kategori_artikel_id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

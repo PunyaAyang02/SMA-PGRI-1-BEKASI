@@ -16,7 +16,8 @@
             <h4 class="card-title">Box Artikel</h4>
         </div>
         <div class="card-body">
-        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.artikel.update',$artikel->id) }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.artikel.update',$artikel) }}">
+            @method('put')
             @csrf
             <div class="form-group">
                 <label for="judul">Judul Artikel</label>
@@ -26,7 +27,8 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Thumbnail</label>
-                        <input type="file" name="file" class="dropify form-control" data-height="190" data-allowed-file-extensions="png jpg gif jpeg svg webp jfif" required>
+                        <input type="file" name="thumbnail" class="dropify form-control" data-height="190" 
+                        data-default-file="{{ @$artikel->image_url }}" data-allowed-file-extensions="png jpg gif jpeg svg webp jfif" >
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -35,7 +37,10 @@
                         <select required="" class="form-control" name="kategori_artikel_id">
                         <option selected="" disabled="">- PILIH KATEGORI -</option>
                         @foreach($kategoriArtikel as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                            <option value="{{ $kategori->id }}"
+                                {{ old('kategori_artikel_id', @$artikel->kategori_artikel_id) == $kategori->id ? 'selected' : '' }}>
+                                {{ $kategori->nama_kategori }}
+                            </option>
                         @endforeach
                         </select>
                     </div>
