@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\JadwalKegiatan;
 use Illuminate\Http\Request;
 
 use App\Models\Pengumuman;
@@ -17,9 +18,30 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::with(['user'])->get();
-        return view('admin.pengumuman.index',compact('pengumuman'));
+        // $pengumuman = Pengumuman::with(['user'])->get();
+        $pengumuman=Pengumuman::all();
+        return view('admin.pengumuman.index',[
+            'pengumuman'=>$pengumuman
+        ]);
     }
+
+
+    // /**
+    //  * Index Pengumuman.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function indexPengumuman(Request $request)
+    // {
+    //     $jadwalKegiatan=JadwalKegiatan::where('tanggal_publish')->get();
+
+    //     return view('admin.pengumuman.index',[
+    //         'jadwalKegiatan'    =>  $jadwalKegiatan
+    //     ]);
+    // }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,12 +61,13 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->request->add([
-            'slug' => Str::slug($request->judul),
-            'tgl' => date('Y-m-d'),
-            'user_id' => auth()->user()->id,
+        Pengumuman::create([
+            'tanggal_awal'  => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir,
+            'uraian' => $request->uraian,
+            'keterangan' => $request->keterangan,
         ]);
-        Pengumuman::create($request->all());
+
 
         return redirect()->route('admin.pengumuman.index')->with('success','Data berhasil ditambah');
     }
@@ -66,9 +89,12 @@ class PengumumanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengumuman $pengumuman)
+    public function edit($id)
     {
-        return view('admin.pengumuman.edit',compact('pengumuman'));
+        $pengumuman=Pengumuman::find($id);
+        return view('admin.pengumuman.edit',[
+            'pengumuman' =>$pengumuman
+        ]);
     }
 
     /**
@@ -78,16 +104,15 @@ class PengumumanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pengumuman $pengumuman)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update',$pengumuman);
-
-        $request->request->add([
-            'slug' => Str::slug($request->judul),
-            'tgl' => date('Y-m-d'),
-            'user_id' => auth()->user()->id,
-        ]);
-        $pengumuman->update($request->all());
+        $data=[
+            'tanggal_awal'  => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir,
+            'uraian'        => $request->uraian,
+            'keterangan' => $request->keterangan,
+        ];
+        JadwalKegiatan::where('id', $id)->update($data);
            
         return redirect()->route('admin.pengumuman.index')->with('success','Data berhasil diupdate');
     }

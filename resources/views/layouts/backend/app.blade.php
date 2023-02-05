@@ -81,6 +81,7 @@
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('templates/backend/AdminLTE-3.0.1') }}/dist/js/adminlte.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 @stack('js')
 </body>
 </html>

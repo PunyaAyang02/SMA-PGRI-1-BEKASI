@@ -18,12 +18,27 @@
             @csrf
             @method('PATCH')
             <div class="form-group">
-                <label for="judul">Judul</label>
-                <input value="{{ $pengumuman->judul }}" required="" type="" name="judul" placeholder="" class="form-control title"> 
+                <label for="uraian">Uraian Kegiatan</label>
+                <input required="" type="" name="uraian" id="uraian" placeholder="" class="form-control title" value="{{ $pengumuman->uraian }}"> 
             </div>
             <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea value="" required="" name="deskripsi" id="deskripsi" class="text-dark form-control summernote">{!! $pengumuman->deskripsi !!}</textarea>
+                <label for="keterangan">Keterangan</label>
+                <input required="" type="" name="keterangan" id="keterangan" placeholder="" class="form-control title" value="{{ $pengumuman->keterangan }}"> 
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="tanggal_awal">Tanggal Mulai</label>
+                        <input value="{{ $pengumuman->tanggal_awal }}" type="date" name="tanggal_awal" id="tanggal_awal" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="tanggal_akhir">Tanggal Selesai</label>
+                        <input value="{{ $pengumuman->tanggal_akhir }}" type="date" name="tanggal_akhir" id="tangal_akhir" class="form-control">
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-sm">UPDATE</button>    

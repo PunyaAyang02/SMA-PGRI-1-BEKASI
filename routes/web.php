@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 //Admin Namespace
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AgendaController as AdminAgendaController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ChangePasswordController;
+use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController;
 use App\Http\Controllers\Admin\UsersController;
 
 
@@ -60,5 +62,12 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => ['auth'
 		Route::resource('agenda','AgendaController');
 		Route::resource('artikel','ArtikelController');
 		Route::resource('kategori-artikel','KategoriArtikelController');
+
+		//agenda
+		Route::get('agenda/segeraPublish/{id}', [AdminAgendaController::class, 'segeraPublish'])->name('agenda.segeraPublish');
+
+		//pengumuman
+		// Route::resource('pengumuman',AdminPengumumanController::class);
+
 	});
 });

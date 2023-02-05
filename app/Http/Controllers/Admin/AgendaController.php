@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Models\Agenda;
+use App\Models\JadwalKegiatan;
+use Carbon\Carbon;
 use Str;
 
 class AgendaController extends Controller
@@ -17,8 +17,10 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agenda = Agenda::all();
-        return view('admin.agenda.index',compact('agenda'));
+        $jadwalKegiatan = JadwalKegiatan::all();
+        return view('admin.agenda.index', [
+            'jadwalKegiatan'    => $jadwalKegiatan
+        ]);
     }
 
     /**
@@ -39,14 +41,24 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->request->add([
-            'tgl' => date('Y-m-d'),
-            'slug' => Str::slug($request->judul),
-            'user_id' => auth()->user()->id,
-        ]);
-        Agenda::create($request->all());
+        // $request->request->add([
+        //     'tgl' => date('Y-m-d'),
+        //     'slug' => Str::slug($request->judul),
+        //     'user_id' => auth()->user()->id,
+        // ]);
+        // Agenda::create($request->all());
+        
 
-        return redirect()->route('admin.agenda.index')->with('success','Data berhasil ditambah');
+        JadwalKegiatan::create([
+            'tanggal_awal'  => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir,
+            'uraian' => $request->uraian,
+            'keterangan' => $request->keterangan,
+        ]);
+
+
+
+        return redirect()->route('admin.agenda.index')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -66,9 +78,12 @@ class AgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agenda $agenda)
+    public function edit($id)
     {
-        return view('admin.agenda.edit',compact('agenda'));
+        $jadwalKegiatan=JadwalKegiatan::find($id);
+        return view('admin.agenda.edit', [
+            'jadwalKegiatan'    =>  $jadwalKegiatan
+        ]);
     }
 
     /**
@@ -78,16 +93,17 @@ class AgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agenda $agenda)
+    public function update(Request $request, $id)
     {
-        $request->request->add([
-            'tgl' => date('Y-m-d'),
-            'slug' => Str::slug($request->judul),
-            'user_id' => auth()->user()->id,
-        ]);
-        $agenda->update($request->all());
-           
-        return redirect()->route('admin.agenda.index')->with('success','Data berhasil diupdate');
+        $data=[
+            'tanggal_awal'  => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir,
+            'uraian'        => $request->uraian,
+            'keterangan' => $request->keterangan,
+        ];
+        JadwalKegiatan::where('id', $id)->update($data);
+
+        return redirect()->route('admin.agenda.index')->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -96,9 +112,74 @@ class AgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Agenda $agenda)
-    {   
-        $agenda->delete();
-        return redirect()->route('admin.agenda.index')->with('success','Data berhasil dihapus');
+    public function destroy($id)
+    {
+        $jadwalKegiatan=JadwalKegiatan::find($id);
+        
+        $jadwalKegiatan->delete();
+        return redirect()->route('admin.agenda.index')->with('success', 'Data berhasil dihapus');
     }
+
+    // /**
+    //  * Segera Publish.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function segeraPublish($id)
+    // {
+    //     $jadwalKegiatan=JadwalKegiatan::find($id);
+    //     if ($jadwalKegiatan->status == 'Pending') {
+    //         $jadwalKegiatan->status ='Segera Dipublish';
+    //     }else{
+    //         $jadwalKegiatan->status = 'Pending';
+    //     }
+    //     $jadwalKegiatan->save();
+
+    //     return redirect()->route('admin.agenda.index')->with('success', 'Data berhasil Diubah');
+    // }
+
+    // /**
+    //  * Publish.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function getStatus($id)
+    // {
+    //     // $jadwalKegiatan=JadwalKegiatan::where('status', 'Publish')->get();
+    //     $jadwalKegiatan=JadwalKegiatan::where('status')
+    //     ->get();
+    //     // foreach ($jadwalKegiatan->status === 'Pending') {
+    //     //     if($jadwalKegiatan->tanggal_awal <= 7){
+    //     //         $jadwalKegiatan->status = 'Publish';
+    //     //     }
+    //     // }else{
+    //     //     $jadwalKegiatan->status = 'Pending';
+    //     // }
+
+    //     foreach ($jadwalKegiatan as $key => $value) {
+    //         $value=JadwalKegiatan::where('tanggal_awal', '<=', 7)->first();
+    //         if($value){
+    //             JadwalKegiatan::where('id', $id)->update([
+    //                 'status'=> 'Publish'
+    //             ]);
+
+    //             $value->save();
+    //         }
+    //     }
+
+    // }
+    
+
+
+
+    
+
+
+
+
+
+    
+    
 }

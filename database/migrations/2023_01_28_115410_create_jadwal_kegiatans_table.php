@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengumumanTable extends Migration
+class CreateJadwalKegiatansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePengumumanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengumuman', function (Blueprint $table) {
+        Schema::create('jadwal_kegiatans', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_awal')->nullable();
             $table->date('tanggal_akhir')->nullable();
@@ -30,6 +30,6 @@ class CreatePengumumanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengumuman');
+        Schema::dropIfExists('jadwal_kegiatans');
     }
 }

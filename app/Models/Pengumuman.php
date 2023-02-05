@@ -13,8 +13,8 @@ class Pengumuman extends Model
 
     protected $table = 'pengumuman';
     
-    protected $fillable = [
-    	'judul','deskripsi','tgl','slug','user_id',
+    protected $guarded = [
+        'id'
     ];
 
     public function user()

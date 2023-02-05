@@ -17,44 +17,29 @@
         <form method="POST" enctype="multipart/form-data" action="{{ route('admin.agenda.store') }}">
             @csrf
             <div class="form-group">
-                <label for="judul">Judul</label>
-                <input required="" type="" name="judul" id="judul" placeholder="" class="form-control title"> 
+                <label for="uraian">Uraian Kegiatan</label>
+                <input required="" type="" name="uraian" id="uraian" placeholder="" class="form-control title"> 
+            </div>
+            <div class="form-group">
+                <label for="keterangan">Keterangan</label>
+                <input required="" type="" name="keterangan" id="keterangan" placeholder="" class="form-control title"> 
             </div>
             
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="tgl_mulai">Tanggal Mulai</label>
-                        <input type="date" name="tgl_mulai" id="tgl_mulai" class="form-control">
+                        <label for="tanggal_awal">Tanggal Mulai</label>
+                        <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="tgl_selesai">Tanggal Selesai</label>
-                        <input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control">
+                        <label for="tanggal_akhir">Tanggal Selesai</label>
+                        <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="jam_mulai">Jam Mulai</label>
-                        <input type="time" name="jam_mulai" id="jam_mulai" class="form-control">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="jam_selesai">Jam Selesai</label>
-                        <input type="time" name="jam_selesai" id="jam_selesai" class="form-control">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea required="" name="deskripsi" id="deskripsi" class="text-dark form-control summernote"></textarea>
-            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-sm">UPLOAD</button>    
             </div> 
