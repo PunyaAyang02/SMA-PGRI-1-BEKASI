@@ -46,7 +46,7 @@
       <div class="icon">
         <i class="fas fa-info"></i>
       </div>
-      <a href="{{ route('admin.pengumuman.indexPengumuman') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="{{ route('admin.pengumuman.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <!-- ./col -->

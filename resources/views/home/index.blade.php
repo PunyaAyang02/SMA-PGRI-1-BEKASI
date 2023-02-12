@@ -62,11 +62,13 @@
                     <!-- Events Thumb -->
                     <div class="events-thumb">
                         <img src="{{ asset('img/bg') }}/pengumuman.png" alt="">
-                        <h6 class="event-date">{{ $pn->tgl }} | BY : {{ $pn->user->name }}</h6>
+                        <h6 class="event-date">{{ $pn->tgl }} 
+                          {{-- | BY : {{ $pn->user->name }} --}}
+                        </h6>
                         <h4 class="event-title">{{ $pn->judul }}</h4>
                     </div>
                     <div>
-                        <a href="{{ route('pengumuman.show',$pn->slug) }}" class="btn btn-primary col-lg">Detail</a>
+                        {{-- <a href="{{ route('pengumuman.show',$pn->slug) }}" class="btn btn-primary col-lg">Detail</a> --}}
                     </div>
                 </div>
             </div>

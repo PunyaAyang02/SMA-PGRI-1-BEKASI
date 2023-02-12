@@ -123,10 +123,9 @@ class PengumumanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengumuman $pengumuman)
+    public function destroy($id)
     {
-        $this->authorize('delete',$pengumuman);
-        
+        $pengumuman=Pengumuman::find($id);
         $pengumuman->delete();
         return redirect()->route('admin.pengumuman.index')->with('success','Data berhasil dihapus');
     }
