@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{{ '/' }}" class="nav-item nav-link active">Beranda</a>
-            <a href="about.html" class="nav-item nav-link">Tentang</a>
+            <a href="{{ route('/about') }}" class="nav-item nav-link">Tentang</a>
             <a href="courses.html" class="nav-item nav-link">Courses</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>

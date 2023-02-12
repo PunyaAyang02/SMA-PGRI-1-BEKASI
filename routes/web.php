@@ -33,6 +33,10 @@ Route::get('/',[HomeController::class,'index']);
 Route::get('/home',[HomeController::class,'index'])->name('home');
 Route::get('/about',[HomeController::class,'about'])->name('about');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+Route::get('/courses',[HomeController::class,'courses'])->name('courses');
+Route::get('/team',[HomeController::class,'team'])->name('team');
+Route::get('/testimonial',[HomeController::class,'testimonial'])->name('testimonial');
+Route::get('/404',[HomeController::class,'notfound'])->name('404');
 
 //Artikel
 Route::get('/artikel',[ArtikelController::class,'index'])->name('artikel');

@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	return view('layouts.index',[
+    	return view('home.index',[
             // 'agenda' => JadwalKegiatan::latest()->take(2)->get(),
             // 'article' => Article::with(['user','categoryArticle'])->latest()->take(2)->get(),
             // 'pengumuman' => Pengumuman::with(['user'])->latest()->take(2)->get(),
@@ -27,6 +27,26 @@ class HomeController extends Controller
 
     public function contact()
     {
-    	return view('kontak');
+    	return view('home.contact');
+    }
+
+    public function courses()
+    {
+    	return view('home.courses');
+    }
+
+    public function team()
+    {
+    	return view('home.team');
+    }
+
+    public function testimonial()
+    {
+    	return view('home.testimonial');
+    }
+
+    public function notfound()
+    {
+    	return view('home.404');
     }
 }
